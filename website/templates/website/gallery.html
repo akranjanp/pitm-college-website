@@ -1,0 +1,121 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %}Campus Gallery | PITM Patliputra Institute{% endblock %}
+
+{% block meta_description %}Explore photos of the PITM college campus infrastructure, computing laboratories, student events, and athletic sports events.{% endblock %}
+
+{% block content %}
+
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <h2 class="page-hero-title">Campus Gallery</h2>
+        <ul class="page-breadcrumbs">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Gallery</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Gallery Section -->
+<section class="section-padding" style="background-color: white;">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 40px;">
+            <h2 class="section-title">Life at PITM</h2>
+            <p class="section-subtitle">Take a virtual tour of our modern infrastructure, collaborative labs, and campus activities.</p>
+        </div>
+        
+        <!-- Category Filter Tabs -->
+        <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">All Photos</button>
+            <button class="filter-btn" data-filter="campus">Campus & Building</button>
+            <button class="filter-btn" data-filter="labs">Labs & Library</button>
+            <button class="filter-btn" data-filter="events">Seminars & Events</button>
+            <button class="filter-btn" data-filter="sports">Sports & Activities</button>
+        </div>
+        
+        <!-- Image Grid -->
+        <div class="gallery-grid">
+            {% if images %}
+                {% for img in images %}
+                    <div class="gallery-item" data-category="{{ img.category }}">
+                        <img src="{% if img.image %}{{ img.image.url }}{% else %}https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=400&auto=format&fit=crop{% endif %}" alt="{{ img.title }}" class="gallery-item-img" loading="lazy">
+                        <div class="gallery-overlay">
+                            <i class="fas fa-search-plus"></i>
+                            <h4>{{ img.title }}</h4>
+                            <p>{{ img.get_category_display }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- Static Fallback Items if DB is empty -->
+                <div class="gallery-item" data-category="campus">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=400&auto=format&fit=crop" alt="Campus Frontage" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>Main Campus Frontage</h4>
+                        <p>Campus Infrastructure</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="labs">
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=400&auto=format&fit=crop" alt="Computer Lab" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>Advanced Computer Lab</h4>
+                        <p>Labs & Library</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=400&auto=format&fit=crop" alt="Seminar Hall" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>National Tech Seminar</h4>
+                        <p>Seminars & Events</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="sports">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=400&auto=format&fit=crop" alt="Sports Grounds" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>Annual Athletics Meet</h4>
+                        <p>Sports & Activities</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="labs">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=400&auto=format&fit=crop" alt="College Library" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>Central Digital Library</h4>
+                        <p>Labs & Library</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=400&auto=format&fit=crop" alt="Graduation Event" class="gallery-item-img">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <h4>Convocation Ceremony</h4>
+                        <p>Seminars & Events</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal Container -->
+<div id="lightbox" class="lightbox">
+    <button id="lightbox-close" class="lightbox-close" aria-label="Close Lightbox">&times;</button>
+    <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="Zoomed view" class="lightbox-img">
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+</div>
+
+{% endblock %}

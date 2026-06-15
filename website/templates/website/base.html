@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PITM - Patliputra Institute of Technology & Management{% endblock %}</title>
+    
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="{% block meta_description %}Welcome to Patliputra Institute of Technology & Management (PITM), Patna's premier destination for computer applications, management, and IT education.{% endblock %}">
+    <meta name="keywords" content="PITM, Patliputra Institute, Patna College, BCA College Patna, BBA Patna, IT College Bihar, Patna University admissions">
+    <meta name="author" content="PITM College">
+    
+    <!-- Leaflet.js Map Stylesheets -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="{% url 'home' %}" class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">
+                    <h1>PITM</h1>
+                    <p>Patliputra Institute</p>
+                </div>
+            </a>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="{% url 'home' %}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="nav-link {% if active_page == 'about' %}active{% endif %}">About Us</a></li>
+                    <li><a href="{% url 'courses' %}" class="nav-link {% if active_page == 'courses' %}active{% endif %}">Courses</a></li>
+                    <li><a href="{% url 'gallery' %}" class="nav-link {% if active_page == 'gallery' %}active{% endif %}">Gallery</a></li>
+                    <li><a href="{% url 'contact' %}" class="nav-link {% if active_page == 'contact' %}active{% endif %}">Contact Us</a></li>
+                </ul>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="{% url 'contact' %}?interest=admission" class="btn btn-primary btn-sm nav-btn" style="padding: 8px 20px; border-radius: 20px; font-size: 0.85rem;">Apply Now</a>
+                <button class="mobile-nav-toggle" aria-label="Open Navigation Drawer">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="backdrop"></div>
+    <aside class="mobile-nav-drawer">
+        <button class="mobile-nav-close" aria-label="Close Navigation Drawer">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="logo">
+            <div class="logo-icon">P</div>
+            <div class="logo-text">
+                <h1>PITM</h1>
+                <p>Patliputra Institute</p>
+            </div>
+        </div>
+        <ul class="mobile-menu">
+            <li><a href="{% url 'home' %}" class="mobile-link {% if active_page == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="{% url 'about' %}" class="mobile-link {% if active_page == 'about' %}active{% endif %}">About Us</a></li>
+            <li><a href="{% url 'courses' %}" class="mobile-link {% if active_page == 'courses' %}active{% endif %}">Courses</a></li>
+            <li><a href="{% url 'gallery' %}" class="mobile-link {% if active_page == 'gallery' %}active{% endif %}">Gallery</a></li>
+            <li><a href="{% url 'contact' %}" class="mobile-link {% if active_page == 'contact' %}active{% endif %}">Contact Us</a></li>
+        </ul>
+        <a href="{% url 'contact' %}" class="btn btn-primary text-center">Admission Query</a>
+    </aside>
+
+    <!-- Main Content Block -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col footer-about">
+                <h3>About PITM</h3>
+                <p>Patliputra Institute of Technology & Management (PITM) is a prestigious academic center established in Patna, offering industry-aligned vocational education in technology and business streams.</p>
+                <div class="social-links">
+                    <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'about' %}"><i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i> History & Vision</a></li>
+                    <li><a href="{% url 'courses' %}"><i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i> Programs Offered</a></li>
+                    <li><a href="{% url 'gallery' %}"><i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i> Campus Gallery</a></li>
+                    <li><a href="{% url 'about' %}#faculty"><i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i> Our Faculty</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Undergraduate Courses</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'courses' %}#bca"><i class="fas fa-graduation-cap" style="font-size: 0.8rem;"></i> BCA Program</a></li>
+                    <li><a href="{% url 'courses' %}#bba"><i class="fas fa-graduation-cap" style="font-size: 0.8rem;"></i> BBA Program</a></li>
+                    <li><a href="{% url 'courses' %}#bscit"><i class="fas fa-graduation-cap" style="font-size: 0.8rem;"></i> B.Sc. IT Program</a></li>
+                    <li><a href="{% url 'courses' %}#bcom"><i class="fas fa-graduation-cap" style="font-size: 0.8rem;"></i> B.Com (Hons)</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>PITM Campus, Bailey Road, Patna, Bihar - 800001</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 91234 56789, +91 98765 43210</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>admissions@patliputrainstitute.edu.in</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Patliputra Institute of Technology & Management (PITM). All Rights Reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="/admin/">Admin Dashboard</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS Map Script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom Main Script -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

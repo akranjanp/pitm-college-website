@@ -1,0 +1,217 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %}Courses Offered | PITM Patliputra Institute{% endblock %}
+
+{% block meta_description %}Browse undergraduate degree programs in IT and management like BCA, BBA, B.Sc. IT, and B.Com, including admission requirements and seats.{% endblock %}
+
+{% block content %}
+
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <h2 class="page-hero-title">Academic Programs Offered</h2>
+        <ul class="page-breadcrumbs">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Courses</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Courses Detail List -->
+<section class="section-padding" style="background-color: var(--neutral-light);">
+    <div class="container">
+        <div class="text-center" style="margin-bottom: 60px;">
+            <h2 class="section-title">Undergraduate Degree Programs</h2>
+            <p class="section-subtitle">Our degree programs are curated to equip students with theoretical concepts and intensive practical exposure.</p>
+        </div>
+        
+        {% if courses %}
+            {% for course in courses %}
+                <div class="course-detail-section" id="course-{{ course.id }}">
+                    <div class="course-detail-header">
+                        <div class="course-detail-header-left">
+                            <h3>{{ course.title }}</h3>
+                            <p>Program Code: {{ course.code }}</p>
+                        </div>
+                        <div>
+                            <span class="slide-tag" style="margin-bottom: 0; background-color: var(--primary); color: white; border: 1.5px solid var(--secondary);">U.G. Program</span>
+                        </div>
+                    </div>
+                    
+                    <div class="course-detail-specs">
+                        <div class="spec-item">
+                            <div class="spec-icon"><i class="far fa-calendar-alt"></i></div>
+                            <div>
+                                <div class="spec-label">Duration</div>
+                                <div class="spec-value">{{ course.duration_years }} Years (6 Semesters)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon"><i class="fas fa-users"></i></div>
+                            <div>
+                                <div class="spec-label">Intake Capacity</div>
+                                <div class="spec-value">{{ course.seats }} Seats</div>
+                            </div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div>
+                                <div class="spec-label">Affiliation</div>
+                                <div class="spec-value">State University Approved</div>
+                            </div>
+                        </div>
+                        
+                        <div class="spec-item">
+                            <div class="spec-icon"><i class="fas fa-check-circle"></i></div>
+                            <div>
+                                <div class="spec-label">Mode</div>
+                                <div class="spec-value">Full-Time, Regular</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="course-detail-body">
+                        <div class="course-detail-desc">
+                            <h4>Course Overview</h4>
+                            <p>{{ course.description }}</p>
+                            
+                            <div class="course-detail-eligibility">
+                                <h4>Minimum Eligibility Criteria</h4>
+                                <p><i class="fas fa-info-circle" style="color: var(--secondary-dark); margin-right: 8px;"></i> {{ course.eligibility }}</p>
+                            </div>
+                            
+                            <div style="margin-top: 30px;">
+                                <a href="{% url 'contact' %}?course={{ course.code }}" class="btn btn-primary">Enquire / Apply for {{ course.code }}</a>
+                                <a href="{% url 'contact' %}" class="btn btn-outline" style="margin-left: 15px;">Download Syllabus</a>
+                            </div>
+                        </div>
+                        <div>
+                            <img src="{% if course.image %}{{ course.image.url }}{% else %}https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop{% endif %}" alt="{{ course.title }}" class="course-detail-side-img">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <!-- Static fallback courses if DB is empty -->
+            <div class="course-detail-section" id="bca">
+                <div class="course-detail-header">
+                    <div class="course-detail-header-left">
+                        <h3>Bachelor of Computer Applications (BCA)</h3>
+                        <p>Program Code: BCA</p>
+                    </div>
+                    <div>
+                        <span class="slide-tag" style="margin-bottom: 0; background-color: var(--primary); color: white; border: 1.5px solid var(--secondary);">U.G. Program</span>
+                    </div>
+                </div>
+                
+                <div class="course-detail-specs">
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="far fa-calendar-alt"></i></div>
+                        <div>
+                            <div class="spec-label">Duration</div>
+                            <div class="spec-value">3 Years (6 Semesters)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="spec-label">Intake Capacity</div>
+                            <div class="spec-value">60 Seats</div>
+                        </div>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div>
+                            <div class="spec-label">Affiliation</div>
+                            <div class="spec-value">State University Approved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-detail-body">
+                    <div class="course-detail-desc">
+                        <h4>Course Overview</h4>
+                        <p>Bachelor of Computer Applications (BCA) is a foundational undergraduate degree focused on computational structures, systems design, software development, database administration, and web engineering. This program equips students with modern programming skills in Java, Python, C++, and database management systems (DBMS), paving the path for roles like Systems Analyst, Software Engineer, or Database Administrator.</p>
+                        
+                        <div class="course-detail-eligibility">
+                            <h4>Minimum Eligibility Criteria</h4>
+                            <p><i class="fas fa-info-circle" style="color: var(--secondary-dark); margin-right: 8px;"></i> Candidates must have passed 10+2 (Intermediate) examination in Arts, Science, or Commerce stream with mathematics or computer science as one of the subjects, securing at least 45% marks in aggregate.</p>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <a href="{% url 'contact' %}?course=BCA" class="btn btn-primary">Enquire / Apply for BCA</a>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="BCA Course" class="course-detail-side-img">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-detail-section" id="bba">
+                <div class="course-detail-header">
+                    <div class="course-detail-header-left">
+                        <h3>Bachelor of Business Administration (BBA)</h3>
+                        <p>Program Code: BBA</p>
+                    </div>
+                    <div>
+                        <span class="slide-tag" style="margin-bottom: 0; background-color: var(--primary); color: white; border: 1.5px solid var(--secondary);">U.G. Program</span>
+                    </div>
+                </div>
+                
+                <div class="course-detail-specs">
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="far fa-calendar-alt"></i></div>
+                        <div>
+                            <div class="spec-label">Duration</div>
+                            <div class="spec-value">3 Years (6 Semesters)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <div class="spec-label">Intake Capacity</div>
+                            <div class="spec-value">60 Seats</div>
+                        </div>
+                    </div>
+                    
+                    <div class="spec-item">
+                        <div class="spec-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div>
+                            <div class="spec-label">Affiliation</div>
+                            <div class="spec-value">State University Approved</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="course-detail-body">
+                    <div class="course-detail-desc">
+                        <h4>Course Overview</h4>
+                        <p>Our Bachelor of Business Administration (BBA) program trains students in business fundamentals, marketing, financial accounting, human resource operations, and corporate communications. The course includes interactive workshops, company visits, case studies, and business planning models to prepare young minds for corporate leadership positions or entrepreneurship.</p>
+                        
+                        <div class="course-detail-eligibility">
+                            <h4>Minimum Eligibility Criteria</h4>
+                            <p><i class="fas fa-info-circle" style="color: var(--secondary-dark); margin-right: 8px;"></i> Candidates must have passed 10+2 (Intermediate) examination in any stream (Arts, Science, or Commerce) from a recognized board, securing at least 45% marks in aggregate.</p>
+                        </div>
+                        
+                        <div style="margin-top: 30px;">
+                            <a href="{% url 'contact' %}?course=BBA" class="btn btn-primary">Enquire / Apply for BBA</a>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=600&auto=format&fit=crop" alt="BBA Course" class="course-detail-side-img">
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

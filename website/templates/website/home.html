@@ -1,0 +1,254 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block title %}PITM | Patna's Leading IT & Management College{% endblock %}
+
+{% block content %}
+
+<!-- Hero Slider / Carousel Section -->
+<section class="hero-slider">
+    {% if slides %}
+        {% for slide in slides %}
+            <div class="slide {% if forloop.first %}active{% endif %}">
+                <img src="{{ slide.image.url }}" alt="{{ slide.title }}" class="slide-img">
+                <div class="container" style="position: relative; z-index: 10;">
+                    <div class="slide-content">
+                        {% if slide.tag %}<span class="slide-tag">{{ slide.tag }}</span>{% endif %}
+                        <h2 class="slide-title">{{ slide.title }}</h2>
+                        {% if slide.description %}<p class="slide-desc">{{ slide.description }}</p>{% endif %}
+                        {% if slide.button_text %}
+                            <a href="{{ slide.button_link }}" class="btn btn-secondary">{{ slide.button_text }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- Fallback Slide 1 -->
+        <div class="slide active">
+            <img src="{% if courses.0.image %}{{ courses.0.image.url }}{% else %}https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop{% endif %}" alt="PITM Campus" class="slide-img">
+            <div class="container" style="position: relative; z-index: 10;">
+                <div class="slide-content">
+                    <span class="slide-tag">Admissions 2026 Open</span>
+                    <h2 class="slide-title">Empowering Futures, Inspiring Academic Innovation</h2>
+                    <p class="slide-desc">Join Patliputra Institute of Technology & Management, Patna's premier destination for BCA, BBA, B.Sc. IT, and modern career-oriented vocational programs.</p>
+                    <a href="{% url 'courses' %}" class="btn btn-secondary">Explore Programs</a>
+                    <a href="{% url 'contact' %}" class="btn btn-outline" style="border-color: white; color: white; margin-left: 15px;">Enquire Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fallback Slide 2 -->
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop" alt="Campus Life" class="slide-img">
+            <div class="container" style="position: relative; z-index: 10;">
+                <div class="slide-content">
+                    <span class="slide-tag">Modern Infrastructure</span>
+                    <h2 class="slide-title">State-of-the-Art Labs & Global Resources</h2>
+                    <p class="slide-desc">Gain hands-on skills in our modern high-speed computer labs, digital learning libraries, and collaboration zones structured for standard industry alignments.</p>
+                    <a href="{% url 'about' %}" class="btn btn-primary">Take a Tour</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fallback Slide 3 -->
+        <div class="slide">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1200&auto=format&fit=crop" alt="Placements" class="slide-img">
+            <div class="container" style="position: relative; z-index: 10;">
+                <div class="slide-content">
+                    <span class="slide-tag">100% Placement Support</span>
+                    <h2 class="slide-title">Launch Your Career with Top Global IT Leaders</h2>
+                    <p class="slide-desc">Our dedicated placement cell ensures top recruiting drives, grooming mock sessions, and summer internship packages for every undergraduate student.</p>
+                    <a href="{% url 'contact' %}" class="btn btn-secondary">Placement Records</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Navigation Buttons -->
+    <button class="slider-btn slider-btn-prev" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+    <button class="slider-btn slider-btn-next" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+</section>
+
+<!-- Notice Board Ticker Section -->
+<section class="notice-section">
+    <div class="container notice-container">
+        <div class="notice-label">
+            <i class="fas fa-bullhorn animate-bell"></i> Latest Updates
+        </div>
+        <div class="notice-ticker">
+            <div class="ticker-wrapper">
+                {% if notices %}
+                    {% for notice in notices %}
+                        <div class="ticker-item">
+                            {% if notice.is_urgent %}<span class="notice-badge">Urgent</span>{% endif %}
+                            <a href="{% url 'about' %}#notices"><strong>{{ notice.title }}</strong> - {{ notice.content|truncatechars:80 }}</a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="ticker-item">Welcome to Patliputra Institute of Technology & Management (PITM), Patna. Admissions for Session 2026-29 are currently ongoing. Fill out the contact form for inquiries.</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Highlights Statistics Section -->
+<section class="section-padding text-center">
+    <div class="container">
+        <h2 class="section-title">PITM Highlights</h2>
+        <p class="section-subtitle">Excellence in education, shaping professional leaders for over a decade in Bihar.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-university"></i></div>
+                <div class="stat-number">15+</div>
+                <div class="stat-title">Years of Legacy</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number">2,500+</div>
+                <div class="stat-title">Alumni Worldwide</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="stat-number">100%</div>
+                <div class="stat-title">Placement Support</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                <div class="stat-number">50+</div>
+                <div class="stat-title">Faculty Experts</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Preview Section -->
+<section class="section-padding about-home">
+    <div class="container about-home-grid">
+        <div class="about-img-box">
+            <img src="https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=600&auto=format&fit=crop" alt="Students in campus" class="about-img-main">
+            <div class="about-img-badge">
+                <span>15+</span>
+                <p>Academic Years</p>
+            </div>
+        </div>
+        
+        <div class="about-home-content">
+            <h2 class="section-title" style="text-align: left; margin-left: 0; padding-bottom: 8px;">Welcome to PITM</h2>
+            <p>Established with a vision to provide standard computer applications and administrative education, PITM has emerged as a landmark center of professional learning in Bihar. We align state curriculum guidance with industrial practical needs to render students highly competitive.</p>
+            <p>Our spacious campus in Patna is designed to promote innovation, collaborative programming, and overall personality development.</p>
+            <ul class="about-home-features">
+                <li><i class="fas fa-check-circle"></i> Affiliated with leading State Universities</li>
+                <li><i class="fas fa-check-circle"></i> Specialized IT & Management curriculum</li>
+                <li><i class="fas fa-check-circle"></i> Highly experienced Ph.D. faculty members</li>
+                <li><i class="fas fa-check-circle"></i> Industry seminars & corporate interactions</li>
+            </ul>
+            <a href="{% url 'about' %}" class="btn btn-primary">Know More About Us</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+<section class="section-padding">
+    <div class="container text-center">
+        <h2 class="section-title">Our Premium Programs</h2>
+        <p class="section-subtitle">We offer undergraduate courses focused on high-demand career pathways.</p>
+        
+        <div class="courses-grid">
+            {% if courses %}
+                {% for course in courses %}
+                    <div class="course-card">
+                        <div class="course-img-wrapper">
+                            <span class="course-badge">U.G. Course</span>
+                            <img src="{% if course.image %}{{ course.image.url }}{% else %}https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop{% endif %}" alt="{{ course.title }}" class="course-img">
+                        </div>
+                        <div class="course-info">
+                            <h3 class="course-title">{{ course.title }}</h3>
+                            <p class="course-desc">{{ course.description|truncatechars:120 }}</p>
+                            <div class="course-meta">
+                                <span><i class="far fa-clock"></i> {{ course.duration_years }} Years</span>
+                                <span><i class="far fa-user"></i> {{ course.seats }} Seats</span>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <a href="{% url 'courses' %}#course-{{ course.id }}" class="btn btn-outline" style="width: 100%; border-radius: 8px;">Course Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <!-- Static Course Fallbacks if DB is empty -->
+                <div class="course-card">
+                    <div class="course-img-wrapper">
+                        <span class="course-badge">U.G. Course</span>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" alt="BCA" class="course-img">
+                    </div>
+                    <div class="course-info">
+                        <h3 class="course-title">Bachelor of Computer Applications (BCA)</h3>
+                        <p class="course-desc">A comprehensive undergraduate program focusing on programming languages, database structures, web engineering, and software development.</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> 3 Years</span>
+                            <span><i class="far fa-user"></i> 60 Seats</span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div style="margin-top: 50px;">
+            <a href="{% url 'courses' %}" class="btn btn-primary">View All Courses</a>
+        </div>
+    </div>
+</section>
+
+<!-- Alumni Testimonials Section -->
+<section class="section-padding testimonials-section">
+    <div class="container text-center">
+        <h2 class="section-title">What Our Alumni Say</h2>
+        <p class="section-subtitle">Real success stories from graduates who built their foundations at PITM.</p>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"Choosing PITM for my BCA was the turning point of my life. The programming faculty here are outstanding and guided me at every step. Today, I am working as a Software Engineer at Wipro, Bangalore."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Alumnus 1" class="author-img">
+                    <div class="author-info">
+                        <h4>Aman Kumar</h4>
+                        <p>BCA Graduate (Batch 2021) | Software Engineer, Wipro</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"The BBA curriculum at PITM is highly practical. The mock presentations, case studies, and business seminars gave me the confidence to excel in marketing management. Got placed in TCS."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop" alt="Alumna 2" class="author-img">
+                    <div class="author-info">
+                        <h4>Priya Kumari</h4>
+                        <p>BBA Graduate (Batch 2022) | HR Executive, TCS</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <i class="fas fa-quote-right quote-icon"></i>
+                <p class="testimonial-text">"B.Sc. IT course structure is fully aligned with modern cloud technology. The labs are open late, and teachers are always available. Currently placed with Infosys as an Associate Developer."</p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" alt="Alumnus 3" class="author-img">
+                    <div class="author-info">
+                        <h4>Rajesh Ranjan</h4>
+                        <p>B.Sc. IT Graduate (Batch 2023) | System Analyst, Infosys</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
